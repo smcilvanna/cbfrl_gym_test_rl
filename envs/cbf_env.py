@@ -3,13 +3,6 @@ from gymnasium import spaces
 import numpy as np
 from scipy.special import erf
 
-
-def gaussian_2d(x, y):
-    sigma = 0.2
-    m = nonlinear_m(y)
-    # Compute the Gaussian distribution
-    return np.exp(-0.5 * ((x - m) ** 2) / (sigma ** 2))
-
 def nonlinear_m(y):
     return 0.05*(y-5)**2    # define a non linear relationship between cbf_val distribution mean (m) and obstacle size (y)
 
@@ -23,8 +16,8 @@ def skew_normal_pdf(x, y):
     # Standard normal CDF for the skew part
     Phi = 0.5 * (1 + erf(alpha * (x - m) / (sigma * np.sqrt(2))))
     # Combine to get the skew-normal PDF
-    return 2 * phi * Phi
-
+    #return 2 * phi * Phi   # no negative values
+    return 3 * phi * Phi - 0.5  # returns negative values for bad actions
 class CustomEnv(gym.Env):
     def __init__(self):
         super(CustomEnv, self).__init__()
