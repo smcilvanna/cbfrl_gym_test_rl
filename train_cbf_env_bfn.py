@@ -50,12 +50,12 @@ def train_and_evaluate_ddpg(learning_rate=1e-3, gamma=0.99, batch_size=100, trai
 
 if __name__ == "__main__": # batch testing of hyperparameters
 
-    outfile = 'results80k.csv'     # name of output file for results
+    outfile = 'results40k_partial.csv'     # name of output file for results
     if os.path.exists(outfile): # do a check if the results file already exists
         raise FileExistsError(f"The file '{outfile}' already exists. Choose a different filename or delete the existing file.")
 
-    # learnrate_set = [1e-3 , 1e-4, 1e-5]     # define parameters to test
-    learnrate_set = [1e-3, 1e-4, 1e-5]
+    learnrate_set = [1e-3 , 1e-4, 1e-5]     # define parameters to test
+    learnrate_set = [1e-4, 1e-5]
     gamma_set     = [0.99 , 0.5 , 0.1 ]
     batch_set     = [1 , 100 ]
     test_set      = list(product(learnrate_set, gamma_set, batch_set))  # create test schedule with all cominations
@@ -65,7 +65,9 @@ if __name__ == "__main__": # batch testing of hyperparameters
 
     for i in range(n_tests):    # loop through test schedule and run each test set and record results
         print("Starting test with RL params", test_set[i])
-        ar, mr = train_and_evaluate_ddpg(test_set[i][0], test_set[i][1], test_set[i][2],train_steps=80000,val_steps=100)
+
+        steps = 40000
+        ar, mr = train_and_evaluate_ddpg(test_set[i][0], test_set[i][1], test_set[i][2],train_steps=steps,val_steps=100)
         results[i,0] = test_set[i][0]
         results[i,1] = test_set[i][1]
         results[i,2] = test_set[i][2]
