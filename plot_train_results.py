@@ -1,8 +1,23 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
+import tkinter as tk
+from tkinter import filedialog
+
+def select_file():  # Use to select file for processing
+    root = tk.Tk()
+    root.withdraw()  # Hide the root window
+    file_path = filedialog.askopenfilename()  # Open file dialog and get the file path
+    return file_path
+
+
+file_path = select_file()               # let user select file, return full path
+file_name = os.path.basename(file_path) # get the file name from path
+file_name = os.path.splitext(file_name)[0]
+img_name = file_name + ".png"
 
 # Step 1: Read the CSV file without headers
-df = pd.read_csv('results.csv', header=None)
+df = pd.read_csv(file_path, header=None)
 
 # Step 2: Format columns
 # Convert all columns except the first to normal notation rounded to three decimal places
@@ -34,5 +49,5 @@ table.set_fontsize(10)
 table.auto_set_column_width(col=list(range(len(df.columns))))
 
 # Save the figure
-plt.savefig('table_image.png', bbox_inches='tight', dpi=300)
+plt.savefig(img_name, bbox_inches='tight', dpi=300)
 plt.close()

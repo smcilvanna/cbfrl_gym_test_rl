@@ -2,6 +2,7 @@
 __pycache__/
 *temp*/
 *tensorboard*/
+outputs/
 
 # Ignore all .png files
 *.png
