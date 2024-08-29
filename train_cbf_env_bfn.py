@@ -20,12 +20,13 @@ def train_and_evaluate_ddpg(learning_rate=1e-3, gamma=0.99, batch_size=100, trai
         batch_size=batch_size,                # Batch size for training
         buffer_size=1000000,           # Replay buffer size
         learning_starts=10,            # Number of steps before training starts
-        tau=0.005,                     # Target network update coefficient
-        tensorboard_log="./ddpg_tensorboard/"  # Path to the directory where TensorBoard logs will be saved
+        #tensorboard_log="./ddpg_tensorboard/"  # Path to the directory where TensorBoard logs will be saved, uncomment for logging
+        tau=0.005                     # Target network update coefficient
     )
 
     # Train the model
-    model.learn(total_timesteps=train_steps, log_interval=10)
+    #model.learn(total_timesteps=train_steps, log_interval=10)  # with tensorboard logging
+    model.learn(total_timesteps=train_steps)                    # without tensorboard logging
 
     # Evaluate the trained model
     obs, info = env.reset()
@@ -50,12 +51,11 @@ def train_and_evaluate_ddpg(learning_rate=1e-3, gamma=0.99, batch_size=100, trai
 
 if __name__ == "__main__": # batch testing of hyperparameters
 
-    outfile = 'results40k_partial.csv'     # name of output file for results
+    outfile = 'v2_results40k.csv'     # name of output file for results
     if os.path.exists(outfile): # do a check if the results file already exists
         raise FileExistsError(f"The file '{outfile}' already exists. Choose a different filename or delete the existing file.")
 
     learnrate_set = [1e-3 , 1e-4, 1e-5]     # define parameters to test
-    learnrate_set = [1e-4, 1e-5]
     gamma_set     = [0.99 , 0.5 , 0.1 ]
     batch_set     = [1 , 100 ]
     test_set      = list(product(learnrate_set, gamma_set, batch_set))  # create test schedule with all cominations
