@@ -1,0 +1,9 @@
+# Ignore __pycache__ directories
+__pycache__/
+*temp*/
+*tensorboard*/
+
+# Ignore all .png files
+*.png
+*.csv
+*.jpg
