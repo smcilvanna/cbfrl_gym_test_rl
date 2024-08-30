@@ -7,5 +7,5 @@ from envs.cbf_env import CustomEnv  # Adjust the import path accordingly
 register(
     id='cbf-value-env-v1',  # Unique identifier for the environment
     entry_point='envs.cbf_env:CustomEnv',  # Corrected path
-    max_episode_steps=100,  # Maximum number of steps per episode
+    max_episode_steps=1,  # Maximum number of steps per episode
 )
