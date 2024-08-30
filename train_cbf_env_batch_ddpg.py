@@ -28,6 +28,9 @@ def train_and_evaluate_ddpg(learning_rate=1e-3, gamma=0.99, batch_size=100, trai
     #model.learn(total_timesteps=train_steps, log_interval=10)  # with tensorboard logging
     model.learn(total_timesteps=train_steps)                    # without tensorboard logging
 
+    mdlname = 'ddpg_' + str(i+1)
+    model.save(mdlname)  # Save the model
+
     # Evaluate the trained model
     obs, info = env.reset()
     sum_reward = 0
@@ -51,7 +54,7 @@ def train_and_evaluate_ddpg(learning_rate=1e-3, gamma=0.99, batch_size=100, trai
 
 if __name__ == "__main__": # batch testing of hyperparameters
 
-    outfile = 'v2_results40k.csv'     # name of output file for results
+    outfile = 'v2_results_ddpg_500k.csv'     # name of output file for results
     if os.path.exists(outfile): # do a check if the results file already exists
         raise FileExistsError(f"The file '{outfile}' already exists. Choose a different filename or delete the existing file.")
 
@@ -66,12 +69,12 @@ if __name__ == "__main__": # batch testing of hyperparameters
     for i in range(n_tests):    # loop through test schedule and run each test set and record results
         print("Starting test with RL params", test_set[i])
 
-        steps = 40000
+        steps = 50
         ar, mr = train_and_evaluate_ddpg(test_set[i][0], test_set[i][1], test_set[i][2],train_steps=steps,val_steps=100)
         results[i,0] = test_set[i][0]
         results[i,1] = test_set[i][1]
         results[i,2] = test_set[i][2]
         results[i,3] = ar
         results[i,4] = mr
-        print("Test ", i, " / ",n_tests," completed.")
+        #print("Test ", i+1, " / ",n_tests," completed.")
         np.savetxt(outfile, results, delimiter=",")
