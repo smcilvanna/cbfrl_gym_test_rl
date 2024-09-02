@@ -69,7 +69,7 @@ if __name__ == "__main__": # batch testing of hyperparameters
     for i in range(n_tests):    # loop through test schedule and run each test set and record results
         print("Starting test with RL params", test_set[i])
 
-        steps = 50
+        steps = 500000
         ar, mr = train_and_evaluate_ddpg(test_set[i][0], test_set[i][1], test_set[i][2],train_steps=steps,val_steps=100)
         results[i,0] = test_set[i][0]
         results[i,1] = test_set[i][1]
