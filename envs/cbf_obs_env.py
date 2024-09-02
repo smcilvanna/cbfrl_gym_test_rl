@@ -21,32 +21,28 @@ def skew_normal_pdf(x, y):
 class CustomEnv(gym.Env):
     def __init__(self):
         super(CustomEnv, self).__init__()
-        
         self.action_space = spaces.Box(low=0, high=3.0, shape=(1,), dtype=np.float32)
         self.observation_space = spaces.Box(low=0, high=3.0, shape=(1,), dtype=np.float32)
-        self.observation = 0.5  # Initialize observation attribute
+        self.observation = None #np.array([0.5], dtype=np.float32)  # Initialize observation attribute
         self.a = None
         self.r = None   
         
-    def reset(self, seed=None, options=None, oradius=0.5):
-        super().reset(seed=seed)
-        self.observation = oradius
+    def reset(self, orad):
+        self.observation = np.array([orad], dtype=np.float32)
         info = {}
         return self.observation, info
     
-    def step(self, action, oradius=0.5):
+    def step(self, action):
         self.a = action
-        self.observation = oradius
-        reward = self.custom_reward_function(self.observation, action)
-        
+        reward = self.custom_reward_function(action)
         terminated = True  # Modify according to your specific termination condition
         truncated = False   # Modify according to any time-based or other truncation conditions
         info = {}
         
         return self.observation, reward, terminated, truncated, info
     
-    def custom_reward_function(self, observation, action):
-        self.r = skew_normal_pdf(action[0],observation[0])
+    def custom_reward_function(self, action):
+        self.r = skew_normal_pdf(action[0],self.observation[0])
         return self.r 
     
     def render(self, mode='human'):
