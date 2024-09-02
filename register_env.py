@@ -9,3 +9,9 @@ register(
     entry_point='envs.cbf_env:CustomEnv',  # Corrected path
     max_episode_steps=1,  # Maximum number of steps per episode
 )
+
+register(
+    id='cbf-value-env-v2',  # Unique identifier for the environment
+    entry_point='envs.cbf_obs_env:CustomEnv',  # Corrected path
+    max_episode_steps=1,  # Maximum number of steps per episode
+)
