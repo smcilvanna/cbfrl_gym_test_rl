@@ -34,11 +34,15 @@ if __name__ == "__main__":
     plt.subplot(2, 1, 1)
     plt.plot(obslist, rl_act_list, label='RL Action')
     plt.title('RL Action vs Obstacle Radius')
+    plt.ylabel('RL Predicted Action')
+    plt.xlabel('Obstacle Radius')
 
     # Plot RL Reward vs Obstacle Radius
     plt.subplot(2, 1, 2)
     plt.plot(obslist, rl_rew_list, label='RL Reward')
     plt.title('RL Action Reward vs Obstacle Radius')
+    plt.ylabel('Predicted Reward with Action')
+    plt.xlabel('Obstacle Radius')
 
     plt.tight_layout()  # Adjust the spacing between subplots
     plt.suptitle("Validation Of Trained Model", fontweight='bold', fontsize=14)  # Add a title to the figure with bold and larger font

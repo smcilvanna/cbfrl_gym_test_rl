@@ -3,8 +3,10 @@ import gymnasium as gym
 from time import sleep
 
 
-env = gym.make('cbf-value-env-v1')
-state = env.reset()
+env = gym.make('cbf-value-env-v2')
+
+options = {'orad': 1.25}
+state = env.reset(options=options)
 done = False
 while not done:
     action = env.action_space.sample()  # Example action selection (random)

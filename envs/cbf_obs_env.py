@@ -27,8 +27,12 @@ class CustomEnv(gym.Env):
         self.a = None
         self.r = None   
         
-    def reset(self, orad):
-        self.observation = np.array([orad], dtype=np.float32)
+    def reset(self, seed=None, options=None):
+        super().reset(seed=seed)
+        if options == None:# if no options are provided, set the obstacle radius to a random value between 0 and 3
+            self.observation = np.array([np.random.uniform(0, 3.0)], dtype=np.float32)
+        else:
+            self.observation = np.array([options['orad']], dtype=np.float32)
         info = {}
         return self.observation, info
     
