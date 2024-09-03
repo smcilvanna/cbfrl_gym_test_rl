@@ -62,7 +62,7 @@ def evaluate_trained_model(model,i,savecsv=False, val_steps=100):
         results[i,4] = min_reward        
         
         if savecsv:       # set true to save to file, false for print only
-            outfile = str(i) + '_v2.1_results_20k.csv'     # name of output file for results
+            outfile = str(i+1) + '_v2.1_results_20k.csv'     # name of output file for results
             np.savetxt(outfile, results, delimiter=",")             # save results to file after each test
         else:
             print("Trained TD3 model with ", steps, " steps(episodes).")
