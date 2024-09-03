@@ -8,16 +8,16 @@ def nonlinear_m(y):
 
 # Skew-normal distribution
 def skew_normal_pdf(x, y):
-    sigma = 0.2
+    sigma = 0.1
     m = nonlinear_m(y)
-    alpha = -0.1 # 0 = no skew <1 = left skew, >1 = right skew
+    alpha = 0 # 0 = no skew <1 = left skew, >1 = right skew
     # Standard normal PDF
     phi = np.exp(-0.5 * ((x - m) ** 2) / (sigma ** 2))
     # Standard normal CDF for the skew part
     Phi = 0.5 * (1 + erf(alpha * (x - m) / (sigma * np.sqrt(2))))
     # Combine to get the skew-normal PDF
     #return 2 * phi * Phi   # no negative values
-    return 3 * phi * Phi - 0.5  # returns negative values for bad actions
+    return 300 * phi * Phi - 100  # returns negative values for bad actions
 class CustomEnv(gym.Env):
     def __init__(self):
         super(CustomEnv, self).__init__()
@@ -30,7 +30,8 @@ class CustomEnv(gym.Env):
     def reset(self, seed=None, options=None):
         super().reset(seed=seed)
         if options == None:# if no options are provided, set the obstacle radius to a random value between 0 and 3
-            self.observation = np.array([np.random.uniform(0, 3.0)], dtype=np.float32)
+            rand_obs = np.array([np.random.uniform(0, 3.0)], dtype=np.float32)
+            self.observation = rand_obs.round(2)
         else:
             self.observation = np.array([options['orad']], dtype=np.float32)
         info = {}

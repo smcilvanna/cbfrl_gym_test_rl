@@ -12,15 +12,15 @@ def nonlinear_m(y):
 
 # Skew-normal distribution
 def skew_normal_pdf(x, y):
-    sigma = 0.2
+    sigma = 0.1
     m = nonlinear_m(y)
-    alpha = -0.1 # 0 = no skew <1 = left skew, >1 = right skew
+    alpha = 0 # 0 = no skew <1 = left skew, >1 = right skew
     # Standard normal PDF
     phi = np.exp(-0.5 * ((x - m) ** 2) / (sigma ** 2))
     # Standard normal CDF for the skew part
     Phi = 0.5 * (1 + erf(alpha * (x - m) / (sigma * np.sqrt(2))))
     # Combine to get the skew-normal PDF
-    return 3 * phi * Phi - 0.5
+    return 300 * phi * Phi - 100
 
 def evaluate_surface(x_values, y_values):
     # Evaluate the Gaussian function for given arrays of x and y values
@@ -40,8 +40,8 @@ def plot_surface(X, Y, Z):
     return fig, ax
 
 # Example usage
-x_values = np.linspace(0, 3, 100)
-y_values = np.linspace(0, 3, 100)
+x_values = np.linspace(0, 3, 1000)
+y_values = np.linspace(0, 3, 1000)
 X, Y, Z = evaluate_surface(x_values, y_values)
 fig, ax = plot_surface(X, Y, Z)
 
