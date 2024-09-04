@@ -62,7 +62,7 @@ def evaluate_trained_model(model,i,savecsv=False, val_steps=100):
         results[i,4] = min_reward        
         
         if savecsv:       # set true to save to file, false for print only
-            outfile = str(i+1) + '_v2.1_results_20k.csv'     # name of output file for results
+            outfile = str(i+1) + '_v2.1_results_50k_.csv'     # name of output file for results
             np.savetxt(outfile, results, delimiter=",")             # save results to file after each test
         else:
             print("Trained TD3 model with ", steps, " steps(episodes).")
@@ -86,14 +86,14 @@ if __name__ == "__main__": # batch testing of hyperparameters
     results       = np.zeros((n_tests,5))   # empty array for results
     # results [columns] = 0.learnrate 1.gamma 2.batch_size 3.ave reward 4.min reward
 
+
     for i in range(n_tests):    # loop through test schedule and run each test set and record results
         print("Starting test with RL params", test_set[i])
-
-        steps = 20000
+        steps = 10000
         model = train_td3(learning_rate=test_set[i][0], 
                           gamma=test_set[i][1], 
                           batch_size=test_set[i][2],
                           train_steps=steps)
         mdlsvnm = "./" + str(i+1) + "_td3_model_" + str(steps) + "steps"
-        model.save(mdlsvnm)
+        # model.save(mdlsvnm)
         evaluate_trained_model(model,i, savecsv=True, val_steps=100)   # evaluate the trained model
