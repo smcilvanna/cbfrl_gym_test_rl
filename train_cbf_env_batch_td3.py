@@ -59,7 +59,9 @@ def evaluate_trained_model(model,i,savecsv=False, val_steps=100):
         results[i,1] = test_set[i][1]
         results[i,2] = test_set[i][2]
         results[i,3] = ave_reward
-        results[i,4] = min_reward        
+        results[i,4] = min_reward
+        results[i,5] = steps
+        results[i,6] = int(i+1)        
         
         if savecsv:       # set true to save to file, false for print only
             outfile = str(i+1) + '_v2.1_results_50k_.csv'     # name of output file for results
@@ -83,8 +85,8 @@ if __name__ == "__main__": # batch testing of hyperparameters
     batch_set     = [32]
     test_set      = list(product(learnrate_set, gamma_set, batch_set))  # create test schedule with all cominations
     n_tests       = len(test_set)
-    results       = np.zeros((n_tests,5))   # empty array for results
-    # results [columns] = 0.learnrate 1.gamma 2.batch_size 3.ave reward 4.min reward
+    results       = np.zeros((n_tests,7))   # empty array for results
+    # results [columns] = 0.learnrate 1.gamma 2.batch_size 3.ave reward 4.min reward  5.steps 6.test number
 
 
     for i in range(n_tests):    # loop through test schedule and run each test set and record results

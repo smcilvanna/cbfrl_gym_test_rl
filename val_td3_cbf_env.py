@@ -34,13 +34,13 @@ if __name__ == "__main__":
         rl_act_list[i] = model.predict(obs_test, deterministic=True)[0]  # Extract the predicted action from the sequence
         opt_act_list[i] = 0.05*(obs_test-5)**2
 
-plt.figure()
-plt.plot(obslist, rl_act_list, label='RL Action')
-plt.plot(obslist, opt_act_list, label='Optimal Action')
-plt.legend()
-plt.xlabel('Obstacle Size')
-plt.ylabel('Action')
-plt.title('RL-Predicted vs Optimal Action')
-plt.show()
+    plt.figure()
+    plt.plot(obslist, rl_act_list, label='RL Action')
+    plt.plot(obslist, opt_act_list, label='Optimal Action')
+    plt.legend()
+    plt.xlabel('Obstacle Size')
+    plt.ylabel('Action')
+    plt.title('RL-Predicted vs Optimal Action')
+    plt.show()
     
   
