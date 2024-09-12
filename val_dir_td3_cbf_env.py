@@ -60,13 +60,13 @@ if __name__ == "__main__":
         plt.plot(obslist, opt_act_list, label='Optimal Action')
         plt.text(0.1, 0.05, plttxt, fontsize=10, ha='left', va='bottom', wrap=True)
         plt.legend()
-        plt.xlabel('Obstacle Size')
-        plt.ylabel('Action')
-        plt.suptitle('RL-Predicted vs Optimal Action')
+        plt.xlabel('Obstacle Size', fontdict={'fontsize': 12, 'fontweight': 'bold'})
+        plt.ylabel('Action', fontdict={'fontsize': 12, 'fontweight': 'bold'})
+        plt.suptitle('RL-Predicted vs Optimal Action', fontsize=16, fontweight='bold')
         plt.title(file)
         plt.ylim(0, 1.2)
         plt.xlim(0, 3)
-        plt.axis('scaled')
+        # plt.axis('scaled')
 
         if tofile:
             plt.savefig('./outputs/tmp/' + file + ".png", bbox_inches='tight', dpi=300)
